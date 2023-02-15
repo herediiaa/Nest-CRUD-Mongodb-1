@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dtos/createUser.dto';
 
 @Injectable()
 export class UserService {
@@ -8,11 +9,11 @@ export class UserService {
   getUser(id: string) {
     return `User ${id}`;
   }
-  createUser(userDto) {
+  createUser(userInfo: CreateUserDto) {
     const response = {
       code: 200,
       message: 'user created',
-      data: userDto,
+      data: userInfo,
     };
     return response;
   }
