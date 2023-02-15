@@ -1,30 +1,27 @@
 import { Body, Controller, Param } from '@nestjs/common';
 import { Get, Post, Delete } from '@nestjs/common';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
+  constructor(private userService: UserService) {}
   @Get()
   getUsers() {
-    return 'all users';
+    return this.userService.getUsers();
   }
 
   @Get(':id')
   getUserById(@Param('id') id: string) {
-    return `this is user ${id}`;
+    return this.userService.getUser(id);
   }
 
   @Post()
-  createUser(@Body() user) {
-    const response = {
-      code: 200,
-      message: 'user created',
-      data: user,
-    };
-    return response;
+  createUser(@Body() userDto) {
+    return this.userService.createUser(userDto);
   }
 
   @Delete(':id')
   deleteUser(@Param('id') id: string) {
-    return `user ${id} deleted`;
+    return this.userService.deleteUser(id);
   }
 }
